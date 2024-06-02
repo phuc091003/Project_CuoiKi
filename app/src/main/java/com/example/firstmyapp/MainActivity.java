@@ -2,6 +2,7 @@ package com.example.firstmyapp;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -41,39 +42,17 @@ public class MainActivity extends AppCompatActivity {
 
         username = getIntent().getStringExtra("USERNAME");
         userId = myDb.getUserIdByUsername(username);
-        btnOrder.setOnClickListener(v -> {
-            String description = etDescription.getText().toString().trim();
-            String address = etAddress.getText().toString().trim();
-            ArrayList<Integer> itemIds = new ArrayList<>();
-
-            for (int i = 0; i < llItems.getChildCount(); i++) {
-                CheckBox checkBox = (CheckBox) llItems.getChildAt(i);
-                if (checkBox.isChecked()) {
-                    itemIds.add((Integer) checkBox.getTag());
-                }
-            }
-            if (description.isEmpty() || address.isEmpty()) {
-                Toast.makeText(MainActivity.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            int[] itemIdsArray = new int[itemIds.size()];
-            for (int i = 0; i < itemIds.size(); i++) {
-                itemIdsArray[i] = itemIds.get(i);
-            }
-            boolean isInserted = myDb.insertOrder(description, address, userId, itemIdsArray);
-            if (isInserted) {
-                Toast.makeText(MainActivity.this, "Order placed successfully", Toast.LENGTH_SHORT).show();
-                loadOrder();
-            } else {
-                Toast.makeText(MainActivity.this, "Order placement failed", Toast.LENGTH_SHORT).show();
-            }
+        btnPay.setOnClickListener(v->{
+            Intent intent = new Intent(MainActivity.this, PaymentActivity.class);
+            startActivity(intent);
         });
     }
-    public void loadOrder() {
-        Cursor cursor = myDb.getOrdersByUser(userId);
-        String[] form = new String[]{"DESCRIPTION", "ADDRESS"};
-        int[] to = new int[]{R.id.tvOrderDescription, R.id.tvOrderAddress};
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.order_item, cursor, form, to, 0);
-        lvOrders.setAdapter(adapter);
+//    public void loadOrder() {
+//        Cursor cursor = myDb.getOrdersByUser(userId);
+//        String[] form = new String[]{"DESCRIPTION", "ADDRESS"};
+//        int[] to = new int[]{R.id.tvOrderDescription, R.id.tvOrderAddress};
+//        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.order_item, cursor, form, to, 0);
+//        lvOrders.setAdapter(adapter);
+//    }
     }
-    }
+

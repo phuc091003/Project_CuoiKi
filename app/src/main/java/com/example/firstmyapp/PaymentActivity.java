@@ -1,4 +1,5 @@
 package com.example.firstmyapp;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +10,7 @@ public class PaymentActivity extends AppCompatActivity {
     EditText etCardNumber, etCardExpiry, etCardCVV;
     Button btnConfirmPayment;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
