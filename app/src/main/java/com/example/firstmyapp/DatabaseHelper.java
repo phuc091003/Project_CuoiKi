@@ -70,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public int getUserIdByUsername(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT ID FROM" + USER_TABLE + " WHERE USERNAME=?", new String[]{username});
+        Cursor cursor = db.rawQuery("SELECT ID FROM " + USER_TABLE + " WHERE USERNAME=?", new String[]{username});
         if (cursor.moveToFirst()) {
             @SuppressLint("Range") int userId = cursor.getInt(cursor.getColumnIndex("ID"));
             cursor.close();
@@ -80,8 +80,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return -1;
     }
 
-    public boolean insertOrder(String description, String address, int userId) {
+    public boolean insertOrder(String description, String address, int userId, int[] itemIds) {
         SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
         try {
             ContentValues contentValues = new ContentValues();
             contentValues.put(COL_ORDER_DESCRIPTION, description);
@@ -89,7 +90,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(COL_ORDER_USER_ID, userId);
             long orderId = db.insert(ORDER_TABLE, null, contentValues);
             if (orderId == -1) return false;
-            int[] itemIds = new int[0];
             for (int itemId : itemIds) {
                 ContentValues orderItemValues = new ContentValues();
                 orderItemValues.put(COL_ORDER_ITEM_ORDER_ID, orderId);

@@ -32,10 +32,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
-                boolean res = myDb.checkUser(username, password);
-                if (res) {
+                boolean isValidUser = myDb.checkUser(username, password);
+                if (isValidUser) {
                     Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("USERNAME", username);
                     startActivity(intent);
                     finish(); // Để kết thúc LoginActivity để người dùng không thể quay lại bằng cách nhấn nút quay lại
                 } else {
@@ -43,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

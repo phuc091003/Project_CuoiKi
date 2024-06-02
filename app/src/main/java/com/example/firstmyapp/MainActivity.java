@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         etAddress = findViewById(R.id.etAddress);
         btnPay = findViewById(R.id.btnPay);
         lvOrders = findViewById(R.id.LvOrder);
-        llItems = findViewById(R.id.main);
+        llItems = findViewById(R.id.llItems);
 
         username = getIntent().getStringExtra("USERNAME");
         userId = myDb.getUserIdByUsername(username);
@@ -50,21 +50,21 @@ public class MainActivity extends AppCompatActivity {
                 String address = etAddress.getText().toString().trim();
                 ArrayList<Integer> itemIds = new ArrayList<>();
 
-                for(int i = 0;i < llItems.getChildCount(); i++){
+                for(int i = 0; i < llItems.getChildCount(); i++){
                     CheckBox checkBox = (CheckBox) llItems.getChildAt(i);
                     if(checkBox.isChecked()){
                         itemIds.add((Integer) checkBox.getTag());
                     }
                 }
-                if (description.isEmpty() || address.isEmpty()) {
+                if (description.isEmpty() || address.isEmpty() || itemIds.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 int[] itemIdsArray = new int[itemIds.size()];
-                for (int i=0; i<itemIds.size(); i++){
+                for (int i=0; i < itemIds.size(); i++){
                     itemIdsArray[i] = itemIds.get(i);
                 }
-                boolean isInserted = myDb.insertOrder(description, address, userId);
+                boolean isInserted = myDb.insertOrder(description, address, userId, itemIdsArray);
                 if (isInserted) {
                     Toast.makeText(MainActivity.this, "Order placed successfully", Toast.LENGTH_SHORT).show();
                     loadOrder();
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("Range") double itemPrice = cursor.getDouble(cursor.getColumnIndex("PRICE"));
 
             CheckBox checkBox = new CheckBox(this);
-            checkBox.setText(itemName + "($"+ itemPrice +")");
+            checkBox.setText(itemName + " ($"+ itemPrice +")");
             checkBox.setTag(itemId);
             llItems.addView(checkBox);
         }
