@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         myDb = new DatabaseHelper(this);
         etDescription = findViewById(R.id.etDescription);
-        etAddress = findViewById(R.id.btnOrder);
+        etAddress = findViewById(R.id.etAddress);
         btnPay = findViewById(R.id.btnPay);
-        lvOrders = findViewById(R.id.lvOrder);
+        lvOrders = findViewById(R.id.LvOrder);
 
         username = getIntent().getStringExtra("USERNAME");
         userId = myDb.getUserIdByUsername(username);
