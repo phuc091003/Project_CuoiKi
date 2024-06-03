@@ -65,13 +65,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btnOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Place Order"
-        android:layout_marginBottom="16dp" />
-
-    <Button
         android:id="@+id/btnPay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

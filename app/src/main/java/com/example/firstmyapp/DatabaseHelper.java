@@ -35,11 +35,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + ORDER_TABLE + "(ORDER_ID INTEGER PRIMARY KEY AUTOINCREMENT,DESCRIPTION TEXT,ADDRESS TEXT,USER_ID INTEGER,FOREIGN KEY(USER_ID) REFERENCES " + USER_TABLE + "(ID))");
         db.execSQL("CREATE TABLE " + ITEM_TABLE + " (ITEM_ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, PRICE REAL)");
         db.execSQL("CREATE TABLE " + ORDER_ITEM_TABLE + " (ORDER_ID INTEGER, ITEM_ID INTEGER, FOREIGN KEY(ORDER_ID) REFERENCES " + ORDER_TABLE + "(ORDER_ID), FOREIGN KEY(ITEM_ID) REFERENCES " + ITEM_TABLE + "(ITEM_ID))");
-
-        // them 1 vai item
-        insertItem(db, "Do an", 10000);
-        insertItem(db, "nuoc uong", 5000);
-        insertItem(db, "do an vat", 2000);
     }
 
     @Override
