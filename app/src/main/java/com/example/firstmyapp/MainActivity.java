@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper myDb;
-    EditText etDescription, etAddress;
+    EditText etDescription, etAddress, etCustomerName, etCustomerPhone;
     Button btnOrder, btnPay;
     ListView lvOrders;
     RecyclerView rvItems;
@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         myDb = new DatabaseHelper(this);
+        etCustomerName = findViewById(R.id.etCustomerName);
+        etCustomerPhone = findViewById(R.id.etCustomerPhone);
         etDescription = findViewById(R.id.etDescription);
         etAddress = findViewById(R.id.etAddress);
         btnPay = findViewById(R.id.btnPay);
