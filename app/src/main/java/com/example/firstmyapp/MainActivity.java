@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         lvOrders = findViewById(R.id.LvOrder);
         rvItems = findViewById(R.id.rvItems);
         llItems = findViewById(R.id.llItems);
-        btnOrder = findViewById(R.id.btnOrder);
-
         username = getIntent().getStringExtra("USERNAME");
         userId = myDb.getUserIdByUsername(username);
 
